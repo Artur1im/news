@@ -13,7 +13,17 @@ class Api {
     'Accept': 'application/json',
   };
 
-  Future<dynamic> get(String path, String API_KEY,
+  Future<dynamic> get(String path, {Map<String, dynamic>? params}) async {
+    Uri url = Uri.https(ENDPOINT, '/${Api.VERSION_API}$path $API_KEY', params);
+    http.Response response = await http.get(url, headers: _headers);
+    Map<String, dynamic> content = jsonDecode(response.body);
+    if (response.statusCode != 200) {
+      throw ApiError(response.statusCode, content.toString());
+    }
+    return content;
+  }
+
+  Future<dynamic> post(String path, String API_KEY,
       {Map<String, dynamic>? params}) async {
     Uri url = Uri.https(ENDPOINT, '/${Api.VERSION_API}$path $API_KEY', params);
     http.Response response = await http.get(url, headers: _headers);
@@ -24,14 +34,14 @@ class Api {
     return content;
   }
 
-  Future<dynamic> post(String path, {Map<String, dynamic>? params}) async {
-    Uri url = Uri.https(ENDPOINT, '/${Api.VERSION_API}$path');
-    http.Response response =
-        await http.post(url, body: params, headers: _headers);
-    Map<String, dynamic> content = jsonDecode(response.body);
-    if (response.statusCode != 200) {
-      throw ApiError(response.statusCode, content.toString());
-    }
-    return content;
-  }
+  // Future<dynamic> post(String path, {Map<String, dynamic>? params}) async {
+  //   Uri url = Uri.https(ENDPOINT, '/${Api.VERSION_API}$path');
+  //   http.Response response =
+  //       await http.post(url, body: params, headers: _headers);
+  //   Map<String, dynamic> content = jsonDecode(response.body);
+  //   if (response.statusCode != 200) {
+  //     throw ApiError(response.statusCode, content.toString());
+  //   }
+  //   return content;
+  // }
 }
