@@ -4,11 +4,9 @@ class NewsModel {
   String content;
   String pubDate;
   String img;
-// String country;
+  List<String> country;
+  List<String> category;
   String language;
-
-  NewsModel(this.title, this.link, this.content, this.pubDate, this.img,
-      this.language);
 
   NewsModel.fromJson(Map<String, dynamic> data)
       : title = data['title'],
@@ -16,7 +14,10 @@ class NewsModel {
         content = data['content'],
         pubDate = data['pubDate'],
         img = data['image_url'],
+        country = data['country'],
+        category = data['category'],
         language = data['language'];
+
   static List<NewsModel> fromJsonToList(Map<String, dynamic> data) {
     List<NewsModel> response = [];
     for (Map<String, dynamic> item in data['results']) {

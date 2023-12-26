@@ -10,6 +10,7 @@ part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
   List<NewsModel> news = [];
+  String nextPage = '';
 
   NewsBloc() : super(NewsFetchingListInitial()) {
     on<NewsFetchListInitial>(newsInitialFetchEvent);
@@ -35,13 +36,19 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   FutureOr<void> _requestAndAddNews() async {
     news.clear();
-    List<NewsModel> list = await NewsApi().news(count: 10);
+    nextPage = '';
+
+    dynamic data = await NewsApi().news(page: nextPage);
+    List<NewsModel> list = data['news'];
+    nextPage = data['nextPage'];
 
     news.addAll(list);
   }
 
   FutureOr<void> _requestFetchMore() async {
-    List<NewsModel> list = await NewsApi().news(count: 10);
+    dynamic data = await NewsApi().news(page: nextPage);
+    List<NewsModel> list = data['news'];
+    nextPage = data['nextPage'];
 
     news.addAll(list);
   }
