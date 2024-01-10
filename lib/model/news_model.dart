@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:news/helpers/list_converter.dart';
+
 class NewsModel {
   String title;
   String link;
   String content;
   String pubDate;
-  String img;
+  String? img;
   List<String> country;
   List<String> category;
   String language;
@@ -14,13 +18,14 @@ class NewsModel {
         content = data['content'],
         pubDate = data['pubDate'],
         img = data['image_url'],
-        country = data['country'],
-        category = data['category'],
+        country = ListConverter.convertDynamicToString(data['country']),
+        category = ListConverter.convertDynamicToString(data['category']),
         language = data['language'];
 
-  static List<NewsModel> fromJsonToList(Map<String, dynamic> data) {
+  static List<NewsModel> fromJsonToList(List<dynamic> data) {
     List<NewsModel> response = [];
-    for (Map<String, dynamic> item in data['results']) {
+
+    for (Map<String, dynamic> item in data) {
       response.add(NewsModel.fromJson(item));
     }
 

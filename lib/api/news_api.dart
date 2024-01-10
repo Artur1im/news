@@ -5,10 +5,10 @@ import 'package:news/model/news_model.dart';
 class NewsApi extends Api {
   Future<Map<String, dynamic>> news({String? page}) async {
     try {
-      Map<String, dynamic> data = await get('/', params: {'page': page});
+      Map<String, dynamic> data = await get('/news', params: {'page': page});
 
       return {
-        'news': NewsModel.fromJsonToList(data),
+        'news': NewsModel.fromJsonToList(data['results']),
         'nextPage': data['nextPage'],
       };
     } on ApiError catch (_) {

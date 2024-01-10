@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:news/api/api_error.dart';
 
 class Api {
   static const ENDPOINT = 'newsdata.io';
-  static const VERSION_API = 'api';
+  static const VERSION_API = 'api/1';
   static const API_KEY = 'pub_35357d5ae542ba8872a68f7ed67508938b7ea';
 
   final Map<String, String> _headers = {
