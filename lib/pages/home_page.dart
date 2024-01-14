@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news/bloc/news_bloc.dart';
@@ -49,10 +47,10 @@ class _HomePageState extends State<HomePage> {
                         final news = state.news[index];
                         return CustomCard(
                           title: news.title,
+                          img: news.img,
                           link: news.link,
                           content: news.content,
                           pubDate: news.pubDate,
-                          img: news.img,
                           country: news.country,
                           category: news.category,
                         );

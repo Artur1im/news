@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:news/helpers/list_converter.dart';
 
 class NewsModel {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news/helpers/string_helper.dart';
+// import 'package:news/helpers/string_helper.dart';
+import 'package:news/pages/single.dart';
 
 // ignore: must_be_immutable
 class CustomCard extends StatelessWidget {
@@ -23,15 +24,29 @@ class CustomCard extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    // print(title);
-    return SizedBox(
-      child: Container(
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Single(
+                    title: title,
+                    link: link,
+                    content: content,
+                    pubDate: pubDate,
+                    img: img,
+                    country: country,
+                    category: category)));
+      },
+      child: SizedBox(
+          child: Container(
         color: Colors.black,
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Card(
           color: const Color.fromRGBO(249, 249, 249, 1),
           child: Row(children: [
             Container(
+              width: 50,
               margin: const EdgeInsets.all(16),
               decoration: const BoxDecoration(
                 boxShadow: [
@@ -43,8 +58,7 @@ class CustomCard extends StatelessWidget {
                   ),
                 ],
               ),
-              // child: SizedBox(
-              //     height: 100, width: 100, child: Image.network(img))
+              child: Image.network(img!),
             ),
             Expanded(
               child: Container(
@@ -53,28 +67,13 @@ class CustomCard extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(title),
-                    Text(link),
-                    Text(country.join(',')),
-                    Text(StringHelper.truncateWithEllipsis(255, content)),
-                    Text(pubDate),
-                    Text(
-                      country[0],
-                      style:
-                          const TextStyle(fontFamily: 'fontRick', fontSize: 19),
-                    ),
-                    Container(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Text(
-                          category[0],
-                          style: const TextStyle(fontSize: 16),
-                        ))
                   ],
                 ),
               ),
             ),
           ]),
         ),
-      ),
+      )),
     );
   }
 }
