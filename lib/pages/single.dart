@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // ignore: must_be_immutable
 class Single extends StatelessWidget {
@@ -21,6 +22,7 @@ class Single extends StatelessWidget {
     required this.category,
   });
 
+  // final String textToCopy = 'link';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,13 +57,34 @@ class Single extends StatelessWidget {
                   Flexible(child: Text(title)),
                 ])),
                 const Divider(color: Colors.black),
+                Text(pubDate),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Country: ${country[0]}'),
+                    const SizedBox(width: 20),
+                    const Text('Сopy link'),
+                    IconButton(
+                      icon: const Icon(Icons.content_copy),
+                      onPressed: () {
+                        _copyToClipboard(link);
+                      },
+                      iconSize: 20,
+                    ),
+                  ],
+                ),
+                const Divider(color: Colors.black),
                 Card(
                   color: const Color.fromRGBO(237, 237, 237, 1),
                   child: Text(content),
-                )
+                ),
               ],
             ),
           )),
     );
   }
+}
+
+void _copyToClipboard(String text) {
+  Clipboard.setData(ClipboardData(text: text));
 }
